@@ -7,17 +7,21 @@ let protectedBranches: string[] = [];
 let suppressPopup = false;
 
 export function activate(context: vscode.ExtensionContext) {
+    let config = vscode.workspace.getConfiguration("branchwarnings");
+
     const status = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 9999);
     status.text = "WARNING";
-    status.color = "#f00";
+    // TODO: Check whether a color code is valid or not
+    // If not valid code then take default color code.
+    // If possible popup if color code is invalid.
+    status.color = config.get<string>("statusColor");
     status.tooltip = "This branch has been marked as protected in the branch-warnings extension";
 
     console.log("Extension branch-warnings initializing");
 
-    let config = vscode.workspace.getConfiguration("branchwarnings");
     protectedBranches = config.get<string[]>("protectedBranches");
     suppressPopup = config.get<boolean>("suppressPopup");
-    
+
     const gitpath = path.join(vscode.workspace.rootPath, ".git");
     const headpath = path.join(gitpath, "HEAD");
     const pattern = new vscode.RelativePattern(gitpath, "HEAD");
