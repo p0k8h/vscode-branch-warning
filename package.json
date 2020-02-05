@@ -38,6 +38,11 @@
             "type": "array",
             "default": [],
             "description": "Array of names of protected branches to show warnings for."
+          },
+          "branchWarnings.statusColor": {
+            "type": "string",
+            "default": "#f00",
+            "description": "Color name/code for the status."
           }
         }
       }
